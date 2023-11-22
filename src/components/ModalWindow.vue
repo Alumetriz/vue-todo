@@ -8,16 +8,12 @@
 
       <h1 class='modal-title'>Add Task</h1>
 
-      <form action='#' class='add-task__form'>
-        <div>
-          <label for='task-title'></label>
-          <input type='text' name='task-title' id='task-title' placeholder='Title'>
-        </div>
-        <div>
-          <label for='task-descr'></label>
-          <textarea name='task-descr' id='task-descr' placeholder='Description'></textarea>
-        </div>
-      </form>
+      <add-task-form
+          v-model:model-value="title"
+          @update:model-value="updateInput"
+          v-model:text-area-value="description"
+          @update:text-area-value="updateTextArea"
+      ></add-task-form>
 
       <div class='buttons__wrapper'>
         <div class='first-column'>
@@ -50,11 +46,28 @@ export default {
     modalIsShow: {
       type: Boolean,
       default: false,
+    },
+    taskTitle: [String, Number],
+    taskDescription: [String, Number],
+  },
+  emits: ['send-title', 'send-description', 'close-modal'],
+  data() {
+    return {
+      title: '',
+      description: '',
     }
   },
   methods: {
     closeModal() {
       this.$emit('close-modal');
+    },
+    updateInput(value) {
+      this.title = value
+      this.$emit('send-title', this.title);
+    },
+    updateTextArea(value) {
+      this.description = value;
+      this.$emit('send-description', this.description)
     }
   }
 }
@@ -156,36 +169,6 @@ export default {
 
 .send-task:hover {
   color: #FFFFFF;
-}
-
-.add-task__form {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
-.add-task__form input,
-.add-task__form textarea {
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 20px;
-  width: 100%;
-  min-height: 50px;
-
-  box-shadow: none;
-  resize: vertical;
-
-  padding: 10px;
-}
-
-.add-task__form input:focus,
-.add-task__form textarea:focus {
-  border: 1px solid white;
-  border-radius: 5px;
-  outline: none;
 }
 
 .first-column {

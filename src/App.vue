@@ -1,5 +1,10 @@
 <template>
-  <modal-window :modal-is-show="modalIsShow" @close-modal="closeModal"></modal-window>
+  <modal-window
+      :modal-is-show="modalIsShow"
+      @close-modal="closeModal"
+      @send-title="getTitle"
+      @send-description="getDescription"
+  ></modal-window>
   <the-header @open-modal="openModal"></the-header>
 
   <tasks-list :tasks="tasks"></tasks-list>
@@ -36,6 +41,8 @@ export default {
         // },
       ],
       modalIsShow: false,
+      taskTitle: '',
+      taskDescription: '',
     }
   },
   methods: {
@@ -44,6 +51,12 @@ export default {
     },
     closeModal() {
       this.modalIsShow = false;
+    },
+    getTitle(value) {
+      this.taskTitle = value;
+    },
+    getDescription(value) {
+      this.taskDescription = value;
     }
   }
 }
