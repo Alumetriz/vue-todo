@@ -87,7 +87,7 @@ export default {
   align-items: center;
   gap: 40px;
 
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
 }
 
@@ -161,7 +161,7 @@ export default {
 .add-task__form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
 }
 
 .add-task__form input,
