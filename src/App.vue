@@ -1,9 +1,42 @@
 <template>
   <the-header></the-header>
+
+  <tasks-list :tasks="tasks"></tasks-list>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      tasks: [
+        {
+          id: Date.now(),
+          title: 'Title task 1',
+          description: 'Description task 1',
+          deadline: '16 Oct at 20:33',
+          category: 'Grocery',
+          priority: 1,
+        },
+        // {
+        //   id: Date.now(),
+        //   title: 'Title task 2',
+        //   description: 'Description task 2',
+        //   deadline: null,
+        //   category: null,
+        //   priority: null,
+        // },
+        // {
+        //   id: Date.now(),
+        //   title: 'Title task 3',
+        //   description: 'Description task 3',
+        //   deadline: null,
+        //   category: null,
+        //   priority: null,
+        // },
+      ]
+    }
+  }
+}
 </script>
 
 <style>

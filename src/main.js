@@ -10,6 +10,7 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {faHouse} from '@fortawesome/free-solid-svg-icons';
 import AddTaskButton from "@/components/AddTaskButton.vue";
+import TasksList from "@/components/TasksList.vue";
 
 library.add(faHouse);
 
@@ -18,5 +19,6 @@ app.component('the-header', TheHeader);
 app.component('header-nav-list', HeaderNavList);
 app.component('header-item', HeaderItem);
 app.component('add-task-button', AddTaskButton);
+app.component('tasks-list', TasksList);
 
 app.mount('#app');
