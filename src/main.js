@@ -11,6 +11,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons';
 import {faHouse} from '@fortawesome/free-solid-svg-icons';
 import AddTaskButton from "@/components/AddTaskButton.vue";
 import TasksList from "@/components/TasksList.vue";
+import ModalWindow from "@/components/ModalWindow.vue";
 
 library.add(faHouse);
 
@@ -20,5 +21,6 @@ app.component('header-nav-list', HeaderNavList);
 app.component('header-item', HeaderItem);
 app.component('add-task-button', AddTaskButton);
 app.component('tasks-list', TasksList);
+app.component('modal-window', ModalWindow);
 
 app.mount('#app');

@@ -1,12 +1,27 @@
 <template>
   <div class="add-task-btn__wrapper">
-    <button class="add-task__btn">+</button>
+    <button class="add-task__btn" @click="openModal">+</button>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    modalIsShow: {
+      type: Boolean,
+      default: false,
+    }
+  },
+  data() {
+    return {
 
+    }
+  },
+  methods: {
+    openModal() {
+      this.$emit('open-modal');
+    }
+  }
 }
 </script>
 

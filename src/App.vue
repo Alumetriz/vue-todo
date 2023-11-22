@@ -1,5 +1,6 @@
 <template>
-  <the-header></the-header>
+  <modal-window :modal-is-show="modalIsShow" @close-modal="closeModal"></modal-window>
+  <the-header @open-modal="openModal"></the-header>
 
   <tasks-list :tasks="tasks"></tasks-list>
 </template>
@@ -33,7 +34,16 @@ export default {
         //   category: null,
         //   priority: null,
         // },
-      ]
+      ],
+      modalIsShow: false,
+    }
+  },
+  methods: {
+    openModal() {
+      this.modalIsShow = true;
+    },
+    closeModal() {
+      this.modalIsShow = false;
     }
   }
 }
