@@ -1,9 +1,22 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import TheHeader from "@/components/TheHeader.vue";
+import HeaderNavList from "@/components/HeaderNavList.vue";
+import HeaderItem from "@/components/HeaderItem.vue";
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {faHouse} from '@fortawesome/free-solid-svg-icons';
+import AddTaskButton from "@/components/AddTaskButton.vue";
 
+library.add(faHouse);
 
 const app = createApp(App);
+app.component('the-header', TheHeader);
+app.component('header-nav-list', HeaderNavList);
+app.component('header-item', HeaderItem);
+app.component('add-task-button', AddTaskButton);
 
 app.mount('#app');
