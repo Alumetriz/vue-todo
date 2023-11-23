@@ -1,10 +1,14 @@
 <template>
   <modal-window
       :modal-is-show="modalIsShow"
+      :options-is-open="optionsIsOpen"
+      :options-modal-type="optionsModalType"
       @close-modal="closeModal"
       @send-title="getTitle"
       @send-description="getDescription"
       @send-data="getData"
+      @open-options-modal="openOptionsModal"
+      @close-options-modal="closeOptionsModal"
   ></modal-window>
   <the-header @open-modal="openModal"></the-header>
 
@@ -26,6 +30,8 @@ export default {
         },
       ],
       modalIsShow: false,
+      optionsIsOpen: false,
+      optionsModalType: null,
       taskTitle: '',
       taskDescription: '',
     }
@@ -62,6 +68,14 @@ export default {
           }
       );
       this.clearInputs();
+    },
+    openOptionsModal(option) {
+      this.optionsModalType = option;
+      this.optionsIsOpen = true;
+    },
+    closeOptionsModal() {
+      this.optionsModalType = null;
+      this.optionsIsOpen = false;
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
-  <div class='modal-overlay' v-if="modalIsShow" @click="closeModal"></div>
-  <div class='modal' v-if="modalIsShow" @click.stop>
+  <div class='modal-overlay' v-if="modalIsShow && !optionsIsOpen" @click="closeModal"></div>
+  <div class="modal-overlay" v-if="modalIsShow && optionsIsOpen" @click="backToMainModal"></div>
+  <div class='modal' v-if="modalIsShow && !optionsIsOpen" @click.stop>
     <div class='modal__wrapper'>
       <button class='close-btn' @click="closeModal">
         <i class='fas fa-times'></i>
@@ -38,19 +39,41 @@
       </div>
     </div>
   </div>
+  <div class="modal" v-if="modalIsShow && optionsIsOpen" @click.stop>
+    <div class="modal__wrapper">
+      <button class='back-btn' @click="backToMainModal">
+        <font-awesome-icon icon="arrow-left"></font-awesome-icon>
+      </button>
+
+      <h1 class='modal-title'>{{ optionsModalTitle }}</h1>
+
+
+
+    </div>
+  </div>
 </template>
 
 <script>
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
 export default {
+  components: {FontAwesomeIcon},
   props: {
     modalIsShow: {
       type: Boolean,
       default: false,
     },
+    optionsIsOpen: {
+      type: Boolean,
+      default: false,
+    },
+    optionsModalType: {
+      type: String,
+    },
     taskTitle: [String, Number],
     taskDescription: [String, Number],
   },
-  emits: ['send-title', 'send-description', 'send-data', 'close-modal', 'open-options-modal'],
+  emits: ['send-title', 'send-description', 'send-data', 'close-modal', 'open-options-modal', 'close-options-modal'],
   data() {
     return {
       title: '',
@@ -81,11 +104,29 @@ export default {
         title: this.title,
         description: this.description,
       });
-      this.clearInputs();
+      this.closeModal();
     },
     openOptionsModal(event) {
       const option = event.target.closest('.options-btn').classList[1];
+      console.log(option)
       this.$emit('open-options-modal', option);
+    },
+    backToMainModal() {
+      this.$emit('close-options-modal');
+    },
+  },
+  computed: {
+    optionsModalTitle() {
+      switch (this.optionsModalType) {
+        case 'set-deadline':
+          return 'Set Deadline';
+        case 'set-tag':
+          return 'Set Category';
+        case 'set-priority':
+          return 'Set Priority';
+        default:
+          return 'Add Task';
+      }
     }
   }
 }
@@ -139,7 +180,8 @@ export default {
   color: #E8E8E8;
 }
 
-.close-btn {
+.close-btn,
+.back-btn {
   font-size: 36px;
   color: red;
   background: none;
