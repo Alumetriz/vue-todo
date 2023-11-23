@@ -31,11 +31,16 @@ export default {
     }
   },
   methods: {
+    clearInputs() {
+      this.taskTitle = '';
+      this.taskDescription = '';
+    },
     openModal() {
       this.modalIsShow = true;
     },
     closeModal() {
       this.modalIsShow = false;
+      this.clearInputs();
     },
     getTitle(value) {
       this.taskTitle = value;
@@ -44,7 +49,6 @@ export default {
       this.taskDescription = value;
     },
     getData(value) {
-      console.log(value)
       this.taskTitle = value.title;
       this.taskDescription = value.description;
       this.tasks.push(
@@ -57,6 +61,7 @@ export default {
             priority: 1,
           }
       );
+      this.clearInputs();
     }
   }
 }

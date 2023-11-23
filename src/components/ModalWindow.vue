@@ -1,6 +1,6 @@
 <template>
   <div class='modal-overlay' v-if="modalIsShow" @click="closeModal"></div>
-  <div class='add-task__modal' v-if="modalIsShow" @click.stop>
+  <div class='modal' v-if="modalIsShow" @click.stop>
     <div class='modal__wrapper'>
       <button class='close-btn' @click="closeModal">
         <i class='fas fa-times'></i>
@@ -17,15 +17,15 @@
 
       <div class='buttons__wrapper'>
         <div class='first-column'>
-          <button class='set-deadline'>
+          <button class='options-btn set-deadline' @click="openOptionsModal">
             <i class='far fa-clock'></i>
           </button>
 
-          <button class='set-tag'>
+          <button class='options-btn set-tag' @click="openOptionsModal">
             <i class='fas fa-tag'></i>
           </button>
 
-          <button class='set-priority'>
+          <button class='options-btn set-priority' @click="openOptionsModal">
             <i class='far fa-flag'></i>
           </button>
         </div>
@@ -50,7 +50,7 @@ export default {
     taskTitle: [String, Number],
     taskDescription: [String, Number],
   },
-  emits: ['send-title', 'send-description', 'send-data', 'close-modal'],
+  emits: ['send-title', 'send-description', 'send-data', 'close-modal', 'open-options-modal'],
   data() {
     return {
       title: '',
@@ -60,6 +60,7 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal');
+      this.clearInputs();
     },
     updateInput(value) {
       this.title = value
@@ -67,7 +68,11 @@ export default {
     },
     updateTextArea(value) {
       this.description = value;
-      this.$emit('send-description', this.description)
+      this.$emit('send-description', this.description);
+    },
+    clearInputs() {
+      this.title = '';
+      this.description = '';
     },
     sendData() {
       if (this.title.trim() === '') return;
@@ -75,14 +80,19 @@ export default {
       this.$emit('send-data', {
         title: this.title,
         description: this.description,
-      })
+      });
+      this.clearInputs();
+    },
+    openOptionsModal(event) {
+      const option = event.target.closest('.options-btn').classList[1];
+      this.$emit('open-options-modal', option);
     }
   }
 }
 </script>
 
 <style scoped>
-.add-task__modal {
+.modal {
   position: fixed;
   top: 50%;
   left: 50%;
