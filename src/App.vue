@@ -6,6 +6,7 @@
       @close-modal="closeModal"
       @send-title="getTitle"
       @send-description="getDescription"
+      @send-date="getDate"
       @send-data="getData"
       @open-options-modal="openOptionsModal"
       @close-options-modal="closeOptionsModal"
@@ -34,12 +35,14 @@ export default {
       optionsModalType: null,
       taskTitle: '',
       taskDescription: '',
+      taskDeadline: '',
     }
   },
   methods: {
     clearInputs() {
       this.taskTitle = '';
       this.taskDescription = '';
+      this.taskDeadline = '';
     },
     openModal() {
       this.modalIsShow = true;
@@ -54,15 +57,21 @@ export default {
     getDescription(value) {
       this.taskDescription = value;
     },
+    getDate(value) {
+      this.taskDeadline = value;
+    },
     getData(value) {
+      console.log(value)
       this.taskTitle = value.title;
       this.taskDescription = value.description;
+      this.taskDeadline = value.deadline;
+
       this.tasks.push(
           {
             id: Date.now(),
             title: this.taskTitle,
             description: this.taskDescription,
-            deadline: '16 Oct at 20:33',
+            deadline: this.taskDeadline,
             category: 'Grocery',
             priority: 1,
           }

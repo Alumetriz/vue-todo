@@ -40,14 +40,18 @@
     </div>
   </div>
   <div class="modal" v-if="modalIsShow && optionsIsOpen" @click.stop>
-    <div class="modal__wrapper">
+    <div class="modal__wrapper calendar">
       <button class='back-btn' @click="backToMainModal">
         <font-awesome-icon icon="arrow-left"></font-awesome-icon>
       </button>
 
       <h1 class='modal-title'>{{ optionsModalTitle }}</h1>
 
-
+      <option-calendar
+          v-if="optionsModalType === 'set-deadline'"
+          @cancel="backToMainModal"
+          @save-date="saveDate"
+      ></option-calendar>
 
     </div>
   </div>
@@ -55,6 +59,7 @@
 
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import logger from "@fortawesome/vue-fontawesome/src/logger";
 
 export default {
   components: {FontAwesomeIcon},
@@ -73,11 +78,21 @@ export default {
     taskTitle: [String, Number],
     taskDescription: [String, Number],
   },
-  emits: ['send-title', 'send-description', 'send-data', 'close-modal', 'open-options-modal', 'close-options-modal'],
+  emits: [
+    'send-title',
+    'send-description',
+    'send-data',
+    'close-modal',
+    'open-options-modal',
+    'close-options-modal',
+    'save-date',
+    'send-date'
+  ],
   data() {
     return {
       title: '',
       description: '',
+      deadline: null,
     }
   },
   methods: {
@@ -103,6 +118,7 @@ export default {
       this.$emit('send-data', {
         title: this.title,
         description: this.description,
+        deadline: this.deadline,
       });
       this.closeModal();
     },
@@ -114,6 +130,19 @@ export default {
     backToMainModal() {
       this.$emit('close-options-modal');
     },
+    saveDate(data) {
+      console.log(`${data.selectedDate.date()} ${data.selectedDate.format('MMM')}
+      ${+data.selectedHour < 10 ? `0${data.selectedHour}` : data.selectedHour}
+      ${+data.selectedMinute < 10 ? `0${data.selectedMinute}` : data.selectedMinute}`);
+
+      const date = `${data.selectedDate.date()} ${data.selectedDate.format('MMM')}`;
+      const hours = `${+data.selectedHour < 10 ? `0${data.selectedHour}` : data.selectedHour}`;
+      const minutes = `${+data.selectedMinute < 10 ? `0${data.selectedMinute}` : data.selectedMinute}`;
+
+      this.deadline = date + ' at ' + hours + ':' + minutes;
+      this.$emit('send-date', this.deadline);
+      this.backToMainModal();
+    }
   },
   computed: {
     optionsModalTitle() {
@@ -161,6 +190,10 @@ export default {
 
   height: 60vh;
   overflow-y: auto;
+}
+
+.modal__wrapper.calendar {
+  height: 80vh;
 }
 
 .modal-overlay {

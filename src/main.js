@@ -13,6 +13,7 @@ import TasksList from "@/components/TasksList.vue";
 import ModalWindow from "@/components/ModalWindow.vue";
 import AddTaskForm from "@/components/AddTaskForm.vue";
 import OptionCalendar from "@/components/OptionCalendar.vue";
+import CalendarView from "@/components/Calendar/CalendarView.vue";
 
 library.add(fas);
 
@@ -25,5 +26,6 @@ app.component('tasks-list', TasksList);
 app.component('modal-window', ModalWindow);
 app.component('add-task-form', AddTaskForm);
 app.component('option-calendar', OptionCalendar);
+app.component('calendar-view', CalendarView);
 
 app.mount('#app');
