@@ -4,6 +4,7 @@
       @close-modal="closeModal"
       @send-title="getTitle"
       @send-description="getDescription"
+      @send-data="getData"
   ></modal-window>
   <the-header @open-modal="openModal"></the-header>
 
@@ -23,22 +24,6 @@ export default {
           category: 'Grocery',
           priority: 1,
         },
-        // {
-        //   id: Date.now(),
-        //   title: 'Title task 2',
-        //   description: 'Description task 2',
-        //   deadline: null,
-        //   category: null,
-        //   priority: null,
-        // },
-        // {
-        //   id: Date.now(),
-        //   title: 'Title task 3',
-        //   description: 'Description task 3',
-        //   deadline: null,
-        //   category: null,
-        //   priority: null,
-        // },
       ],
       modalIsShow: false,
       taskTitle: '',
@@ -57,6 +42,21 @@ export default {
     },
     getDescription(value) {
       this.taskDescription = value;
+    },
+    getData(value) {
+      console.log(value)
+      this.taskTitle = value.title;
+      this.taskDescription = value.description;
+      this.tasks.push(
+          {
+            id: Date.now(),
+            title: this.taskTitle,
+            description: this.taskDescription,
+            deadline: '16 Oct at 20:33',
+            category: 'Grocery',
+            priority: 1,
+          }
+      );
     }
   }
 }

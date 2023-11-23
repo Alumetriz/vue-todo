@@ -31,7 +31,7 @@
         </div>
 
         <div class='second-column'>
-          <button class='send-task'>
+          <button class='send-task' @click="sendData">
             <i class='far fa-paper-plane'></i>
           </button>
         </div>
@@ -50,7 +50,7 @@ export default {
     taskTitle: [String, Number],
     taskDescription: [String, Number],
   },
-  emits: ['send-title', 'send-description', 'close-modal'],
+  emits: ['send-title', 'send-description', 'send-data', 'close-modal'],
   data() {
     return {
       title: '',
@@ -68,6 +68,14 @@ export default {
     updateTextArea(value) {
       this.description = value;
       this.$emit('send-description', this.description)
+    },
+    sendData() {
+      if (this.title.trim() === '') return;
+
+      this.$emit('send-data', {
+        title: this.title,
+        description: this.description,
+      })
     }
   }
 }
