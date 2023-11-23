@@ -8,6 +8,7 @@
       @send-description="getDescription"
       @send-date="getDate"
       @send-category="getCategory"
+      @send-priority="getPriority"
       @send-data="getData"
       @open-options-modal="openOptionsModal"
       @close-options-modal="closeOptionsModal"
@@ -29,6 +30,7 @@ export default {
       taskDescription: '',
       taskDeadline: '',
       taskCategory: '',
+      taskPriority: 1,
     }
   },
   methods: {
@@ -56,8 +58,11 @@ export default {
     getCategory(value) {
       this.taskCategory = value;
     },
-    getData(value) {
+    getPriority(value) {
       console.log(value)
+      this.taskPriority = value;
+    },
+    getData(value) {
       this.taskTitle = value.title;
       this.taskDescription = value.description;
       this.taskDeadline = value.deadline;
@@ -69,7 +74,7 @@ export default {
             description: this.taskDescription,
             deadline: this.taskDeadline,
             category: this.taskCategory,
-            priority: 1,
+            priority: this.taskPriority,
           }
       );
       this.clearInputs();

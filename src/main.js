@@ -15,6 +15,7 @@ import AddTaskForm from "@/components/AddTaskForm.vue";
 import OptionCalendar from "@/components/OptionCalendar.vue";
 import CalendarView from "@/components/Calendar/CalendarView.vue";
 import OptionCategories from "@/components/OptionCategories.vue";
+import OptionPriorities from "@/components/OptionPriorities.vue";
 
 library.add(fas);
 
@@ -29,5 +30,6 @@ app.component('add-task-form', AddTaskForm);
 app.component('option-calendar', OptionCalendar);
 app.component('calendar-view', CalendarView);
 app.component('option-categories', OptionCategories);
+app.component('option-priorities', OptionPriorities);
 
 app.mount('#app');

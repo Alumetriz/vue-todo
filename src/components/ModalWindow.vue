@@ -59,6 +59,12 @@
           @save-category="saveCategory"
       ></option-categories>
 
+      <option-priorities
+          v-else-if="optionsModalType === 'set-priority'"
+          @cancel="backToMainModal"
+          @save-priority="savePriority"
+      ></option-priorities>
+
     </div>
   </div>
 </template>
@@ -93,6 +99,7 @@ export default {
     'save-date',
     'send-date',
     'send-category',
+    'send-priority',
   ],
   data() {
     return {
@@ -100,6 +107,7 @@ export default {
       description: '',
       deadline: null,
       category: null,
+      priority: 1,
     }
   },
   methods: {
@@ -127,6 +135,7 @@ export default {
         description: this.description,
         deadline: this.deadline,
         category: this.category,
+        priority: this.priority,
       });
       this.closeModal();
     },
@@ -154,6 +163,11 @@ export default {
     saveCategory(obj) {
       this.category = obj;
       this.$emit('send-category', this.category);
+      this.backToMainModal();
+    },
+    savePriority(value) {
+      this.priority = value;
+      this.$emit('send-priority', this.priority);
       this.backToMainModal();
     }
   },
