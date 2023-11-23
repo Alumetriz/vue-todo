@@ -7,6 +7,7 @@
       @send-title="getTitle"
       @send-description="getDescription"
       @send-date="getDate"
+      @send-category="getCategory"
       @send-data="getData"
       @open-options-modal="openOptionsModal"
       @close-options-modal="closeOptionsModal"
@@ -20,22 +21,14 @@
 export default {
   data() {
     return {
-      tasks: [
-        {
-          id: Date.now(),
-          title: 'Title task 1',
-          description: 'Description task 1',
-          deadline: '16 Oct at 20:33',
-          category: 'Grocery',
-          priority: 1,
-        },
-      ],
+      tasks: [],
       modalIsShow: false,
       optionsIsOpen: false,
       optionsModalType: null,
       taskTitle: '',
       taskDescription: '',
       taskDeadline: '',
+      taskCategory: '',
     }
   },
   methods: {
@@ -60,6 +53,9 @@ export default {
     getDate(value) {
       this.taskDeadline = value;
     },
+    getCategory(value) {
+      this.taskCategory = value;
+    },
     getData(value) {
       console.log(value)
       this.taskTitle = value.title;
@@ -72,7 +68,7 @@ export default {
             title: this.taskTitle,
             description: this.taskDescription,
             deadline: this.taskDeadline,
-            category: 'Grocery',
+            category: this.taskCategory,
             priority: 1,
           }
       );
@@ -125,5 +121,19 @@ body {
   fill: white;
   stroke: white;
   object-fit: cover;
+}
+
+.category-icon {
+  width: 60px;
+  height: 60px;
+}
+
+.task-category-image svg {
+  width: 30px;
+  height: 30px;
+}
+
+.task-category-image svg {
+  z-index: 2;
 }
 </style>

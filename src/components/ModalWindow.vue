@@ -53,13 +53,18 @@
           @save-date="saveDate"
       ></option-calendar>
 
+      <option-categories
+          v-else-if="optionsModalType === 'set-tag'"
+          @cancel="backToMainModal"
+          @save-category="saveCategory"
+      ></option-categories>
+
     </div>
   </div>
 </template>
 
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import logger from "@fortawesome/vue-fontawesome/src/logger";
 
 export default {
   components: {FontAwesomeIcon},
@@ -86,13 +91,15 @@ export default {
     'open-options-modal',
     'close-options-modal',
     'save-date',
-    'send-date'
+    'send-date',
+    'send-category',
   ],
   data() {
     return {
       title: '',
       description: '',
       deadline: null,
+      category: null,
     }
   },
   methods: {
@@ -119,6 +126,7 @@ export default {
         title: this.title,
         description: this.description,
         deadline: this.deadline,
+        category: this.category,
       });
       this.closeModal();
     },
@@ -141,6 +149,11 @@ export default {
 
       this.deadline = date + ' at ' + hours + ':' + minutes;
       this.$emit('send-date', this.deadline);
+      this.backToMainModal();
+    },
+    saveCategory(obj) {
+      this.category = obj;
+      this.$emit('send-category', this.category);
       this.backToMainModal();
     }
   },
