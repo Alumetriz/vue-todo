@@ -3,7 +3,11 @@
     <section class='tasks__section'>
       <div class='wrapper'>
         <div class='tasks__wrapper' v-if="tasks.length > 0">
-          <task-item :task="tasks[0]"></task-item>
+          <task-item
+              v-for="task in tasks"
+              :key="task.id"
+              :task="task"
+          ></task-item>
         </div>
 
         <div class="tasks__wrapper empty" v-else>
@@ -47,7 +51,11 @@ export default {
   font-size: 20px;
   font-weight: 300;
 }
-
+.tasks__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
 .tasks__wrapper.empty {
   display: flex;
   flex-direction: column;
