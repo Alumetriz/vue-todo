@@ -1,6 +1,8 @@
 <template>
-  <div class="task">
-    <svg class="options-task__btn" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+  <div
+      class="task"
+  >
+    <svg @click="selectTask" class="options-task__btn" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
       <path
           d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
     </svg>
@@ -41,6 +43,11 @@ export default {
       type: Object,
       required: true,
     }
+  },
+  methods: {
+    selectTask() {
+      this.$emit('select-task', this.task);
+    },
   }
 }
 </script>
@@ -159,6 +166,7 @@ export default {
   width: 30px;
   height: 30px;
 }
+
 .priority svg {
   fill: #E8E8E8;
 }

@@ -7,6 +7,7 @@
               v-for="task in tasks"
               :key="task.id"
               :task="task"
+              @select-task="selectTask"
           ></task-item>
         </div>
 
@@ -30,6 +31,11 @@ export default {
     tasks: {
       type: Array,
       required: true,
+    }
+  },
+  methods: {
+    selectTask(task) {
+      this.$emit('select-task', task);
     }
   }
 }

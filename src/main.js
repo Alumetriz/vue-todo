@@ -15,6 +15,7 @@ import AddTaskForm from "@/components/AddTaskForm.vue";
 import OptionCalendar from "@/components/OptionCalendar.vue";
 import OptionCategories from "@/components/OptionCategories.vue";
 import OptionPriorities from "@/components/OptionPriorities.vue";
+import EditTaskModal from "@/components/EditTaskModal.vue";
 
 library.add(fas);
 
@@ -29,5 +30,6 @@ app.component('add-task-form', AddTaskForm);
 app.component('option-calendar', OptionCalendar);
 app.component('option-categories', OptionCategories);
 app.component('option-priorities', OptionPriorities);
+app.component('edit-task-modal', EditTaskModal);
 
 app.mount('#app');

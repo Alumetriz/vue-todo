@@ -13,17 +13,33 @@
       @open-options-modal="openOptionsModal"
       @close-options-modal="closeOptionsModal"
   ></modal-window>
+
+  <edit-task-modal
+      v-if="selectedTask"
+      :edit-modal-is-show="editModalIsShow"
+      :selected-task="selectedTask"
+      @update:model-value="editTitle"
+      @update:text-area-value="editDescription"
+      @close-edit-modal="closeEditModal"
+      @save-changes="editTask(selectedTask)"
+  ></edit-task-modal>
+
   <the-header @open-modal="openModal"></the-header>
 
-  <tasks-list :tasks="tasks"></tasks-list>
+  <tasks-list
+      :tasks="tasks"
+      @select-task="selectTask"
+  ></tasks-list>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       tasks: [],
       modalIsShow: false,
+      editModalIsShow: false,
       optionsIsOpen: false,
       optionsModalType: null,
       taskTitle: '',
@@ -31,6 +47,10 @@ export default {
       taskDeadline: '',
       taskCategory: '',
       taskPriority: 1,
+      selectedTask: null,
+
+      newTitle: '',
+      newDescription: '',
     }
   },
   methods: {
@@ -45,6 +65,9 @@ export default {
     closeModal() {
       this.modalIsShow = false;
       this.clearInputs();
+    },
+    closeEditModal() {
+      this.editModalIsShow = false;
     },
     getTitle(value) {
       this.taskTitle = value;
@@ -86,6 +109,20 @@ export default {
     closeOptionsModal() {
       this.optionsModalType = null;
       this.optionsIsOpen = false;
+    },
+    selectTask(task) {
+      this.selectedTask = task;
+      this.editModalIsShow = true;
+      console.log(task)
+    },
+    editTitle(value) {
+      this.selectedTask.title = value;
+    },
+    editDescription(value) {
+      this.selectedTask.description = value;
+    },
+    editTask(task) {
+      this.tasks.find((t) => t.id === task.id);
     }
   }
 }
@@ -139,6 +176,12 @@ body {
 }
 
 .task-category-image svg {
+  z-index: 2;
+}
+
+.category-detail svg {
+  width: 30px;
+  height: 30px;
   z-index: 2;
 }
 </style>

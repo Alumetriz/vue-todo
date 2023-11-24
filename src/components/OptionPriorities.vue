@@ -37,6 +37,7 @@ export default {
       priority: 1,
     }
   },
+  emits: ['cancel', 'save-priority'],
   methods: {
     selectPriority(priority) {
       this.priority = priority;
