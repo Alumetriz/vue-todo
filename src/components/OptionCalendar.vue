@@ -31,7 +31,7 @@
             :key="hour"
             @click="selectHour(hour)"
             :class="{selected: isSelectedHour(hour)}"
-        >{{ hour }}
+        >{{ hour < 10 ? '0' + hour : hour }}
         </div>
       </div>
       <div class='dots'>:</div>
@@ -42,7 +42,7 @@
             :key="minute"
             @click="selectMinutes(minute)"
             :class="{selected: isSelectedMinutes(minute)}"
-        >{{ minute }}
+        >{{ minute < 10 ? '0' + minute : minute }}
         </div>
       </div>
     </div>
