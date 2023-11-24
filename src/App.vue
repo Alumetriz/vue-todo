@@ -18,12 +18,12 @@
       v-if="selectedTask"
       :edit-modal-is-show="editModalIsShow"
       :selected-task="selectedTask"
-      @update:model-value="editTitle"
-      @update:text-area-value="editDescription"
       @close-edit-modal="closeEditModal"
-      @save-changes="editTask(selectedTask)"
-      @complete-task=""
+      @save-changes="updateSelectedTask"
   ></edit-task-modal>
+  <!--      @update:model-value="editTitle"-->
+  <!--      @update:text-area-value="editDescription"-->
+  <!--      @complete-task=""-->
 
   <the-header @open-modal="openModal"></the-header>
 
@@ -118,16 +118,15 @@ export default {
       console.log(task)
     },
     editTitle(value) {
-      this.selectedTask.title = value;
+      this.newTitle = value;
     },
     editDescription(value) {
-      this.selectedTask.description = value;
+      this.newDescription = value;
     },
-    editTask(task) {
-      this.tasks.find((t) => t.id === task.id);
-    },
-    completeTask(task) {
-
+    updateSelectedTask(updatedTask) {
+      const task = this.tasks.find(task => task.id === updatedTask.id);
+      task.title = updatedTask.newTitle;
+      task.description = updatedTask.newDescription;
     }
   }
 }

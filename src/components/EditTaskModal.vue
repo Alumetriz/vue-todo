@@ -47,15 +47,15 @@
                 type="text"
                 class="task-text__title"
                 placeholder="input task title"
-                :value="selectedTask.title"
-                @input="updateInput($event.target.value)"
+                :value="newTitle"
+                @input="editTitle"
             ></label>
           <label>
             <textarea
                 placeholder="input task description"
                 class="task-text__descr"
-                :value="selectedTask.description"
-                @input="updateTextArea($event.target.value)"
+                :value="newDescription"
+                @input="editDescription"
             ></textarea>
           </label>
         </div>
@@ -174,27 +174,31 @@ export default {
   },
   data() {
     return {
-      newTitle: '',
-      newDescription: '',
+      newTitle: this.selectedTask.title,
+      newDescription: this.selectedTask.description,
     }
   },
   methods: {
-    updateInput(value) {
-      this.newTitle = value;
+    editTitle(value) {
+      this.newTitle = value.target.value;
     },
-    updateTextArea(value) {
-      this.newDescription = value;
+    editDescription(value) {
+      this.newDescription = value.target.value;
     },
     closeModal() {
       this.$emit('close-edit-modal');
+      this.newTitle = this.selectedTask.title;
+      this.newDescription = this.selectedTask.description;
     },
     saveChanges() {
-      this.$emit('update:modelValue', this.newTitle);
-      this.$emit('update:textAreaValue', this.newDescription);
-      this.newTitle = '';
-      this.newDescription = '';
-      this.$emit('save-changes');
+      this.$emit('save-changes', {
+        id: this.selectedTask.id,
+        newTitle: this.newTitle,
+        newDescription: this.newDescription,
+      });
       this.closeModal();
+      this.newTitle = this.selectedTask.title;
+      this.newDescription = this.selectedTask.description;
     },
     completeTask() {
       this.$emit('complete-task');
