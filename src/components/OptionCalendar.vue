@@ -229,6 +229,10 @@ export default {
 .hour.selected,
 .minute.selected {
   background-color: green;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .next-mth,
