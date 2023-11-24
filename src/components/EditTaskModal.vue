@@ -40,7 +40,7 @@
       </div>
 
       <div class="task-options">
-        <button class="radio done-task"></button>
+        <button class="radio done-task" @click="completeTask"></button>
         <div class="task-text">
           <label>
             <input
@@ -180,17 +180,24 @@ export default {
   },
   methods: {
     updateInput(value) {
-      console.log(value)
-      this.$emit('update:modelValue', value);
+      this.newTitle = value;
     },
     updateTextArea(value) {
-      this.$emit('update:textAreaValue', value)
+      this.newDescription = value;
     },
     closeModal() {
       this.$emit('close-edit-modal');
     },
     saveChanges() {
+      this.$emit('update:modelValue', this.newTitle);
+      this.$emit('update:textAreaValue', this.newDescription);
+      this.newTitle = '';
+      this.newDescription = '';
       this.$emit('save-changes');
+      this.closeModal();
+    },
+    completeTask() {
+      this.$emit('complete-task');
     }
   }
 }

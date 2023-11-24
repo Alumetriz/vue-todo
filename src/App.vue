@@ -22,6 +22,7 @@
       @update:text-area-value="editDescription"
       @close-edit-modal="closeEditModal"
       @save-changes="editTask(selectedTask)"
+      @complete-task=""
   ></edit-task-modal>
 
   <the-header @open-modal="openModal"></the-header>
@@ -98,6 +99,7 @@ export default {
             deadline: this.taskDeadline,
             category: this.taskCategory,
             priority: this.taskPriority,
+            isCompleted: false,
           }
       );
       this.clearInputs();
@@ -123,6 +125,9 @@ export default {
     },
     editTask(task) {
       this.tasks.find((t) => t.id === task.id);
+    },
+    completeTask(task) {
+
     }
   }
 }
