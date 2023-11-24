@@ -181,9 +181,9 @@ export default {
   },
   data() {
     return {
-      newTitle: this.selectedTask.title,
-      newDescription: this.selectedTask.description,
-      completedTask: this.isCompleted,
+      newTitle: this.selectedTask ? this.selectedTask.title : '',
+      newDescription: this.selectedTask ? this.selectedTask.description : '',
+      completedTask: this.selectedTask ? this.selectedTask.isCompleted : false,
     }
   },
   methods: {
@@ -214,7 +214,22 @@ export default {
       this.$emit('complete-task');
       this.completedTask = this.selectedTask.isCompleted;
     }
-  }
+  },
+  watch: {
+    selectedTask(newTask) {
+      /*
+      * Свойство `watch` наблюдает за изменениями в пропсе `selectedTask`,
+      * и когда приходит новое значение этого пропса (новая выбранная задача с уникальным идентификатором),
+      * блок кода внутри `watch` обновляет данные в компоненте (`newTitle`, `newDescription`, `completedTask`) значениями из новой выбранной задачи.
+      * Это позволяет отображать актуальную информацию о выбранной задаче в модальном окне редактирования при каждом изменении выбранной задачи.
+      * */
+      if (newTask) {
+        this.newTitle = newTask.title;
+        this.newDescription = newTask.description;
+        this.completedTask = newTask.isCompleted;
+      }
+    },
+  },
 }
 </script>
 
