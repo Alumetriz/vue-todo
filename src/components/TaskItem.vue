@@ -8,7 +8,7 @@
     </svg>
 
     <div class="task__main-info">
-      <h2 class="task-title">{{ task.title }}</h2>
+      <h2 :class="{'task-title': true, 'completed': task.isCompleted}">{{ task.title }}</h2>
       <p class="task-deadline">{{ task.deadline }}</p>
     </div>
 
@@ -78,7 +78,10 @@ export default {
   font-size: 35px;
   font-weight: 500;
 }
-
+.task-title.completed {
+  text-decoration: line-through;
+  color: #595959;
+}
 .task-deadline {
   color: #AFAFAF;
   font-size: 21px;

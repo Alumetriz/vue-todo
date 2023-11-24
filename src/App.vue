@@ -18,12 +18,13 @@
       v-if="selectedTask"
       :edit-modal-is-show="editModalIsShow"
       :selected-task="selectedTask"
+      :is-completed="selectedTask.isCompleted"
       @close-edit-modal="closeEditModal"
       @save-changes="updateSelectedTask"
+      @complete-task="completeTask"
   ></edit-task-modal>
   <!--      @update:model-value="editTitle"-->
   <!--      @update:text-area-value="editDescription"-->
-  <!--      @complete-task=""-->
 
   <the-header @open-modal="openModal"></the-header>
 
@@ -127,6 +128,9 @@ export default {
       const task = this.tasks.find(task => task.id === updatedTask.id);
       task.title = updatedTask.newTitle;
       task.description = updatedTask.newDescription;
+    },
+    completeTask() {
+      this.selectedTask.isCompleted = !this.selectedTask.isCompleted;
     }
   }
 }

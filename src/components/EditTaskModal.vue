@@ -40,12 +40,15 @@
       </div>
 
       <div class="task-options">
-        <button class="radio done-task" @click="completeTask"></button>
+        <button
+            :class="{'radio': true, 'done-task': true, 'active': isCompleted}"
+            @click="completeTask"
+        ></button>
         <div class="task-text">
           <label>
             <input
                 type="text"
-                class="task-text__title"
+                :class="{'task-text__title': true, 'complete': isCompleted}"
                 placeholder="input task title"
                 :value="newTitle"
                 @input="editTitle"
@@ -53,7 +56,7 @@
           <label>
             <textarea
                 placeholder="input task description"
-                class="task-text__descr"
+                :class="{'task-text__descr': true, 'complete': isCompleted}"
                 :value="newDescription"
                 @input="editDescription"
             ></textarea>
@@ -170,12 +173,17 @@ export default {
     editModalIsShow: {
       type: Boolean,
       default: false,
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
     return {
       newTitle: this.selectedTask.title,
       newDescription: this.selectedTask.description,
+      completedTask: this.isCompleted,
     }
   },
   methods: {
@@ -195,13 +203,16 @@ export default {
         id: this.selectedTask.id,
         newTitle: this.newTitle,
         newDescription: this.newDescription,
+        completedTask: this.completedTask,
       });
       this.closeModal();
       this.newTitle = this.selectedTask.title;
       this.newDescription = this.selectedTask.description;
+      this.completedTask = this.selectedTask.isCompleted;
     },
     completeTask() {
       this.$emit('complete-task');
+      this.completedTask = this.selectedTask.isCompleted;
     }
   }
 }
@@ -418,7 +429,8 @@ export default {
   background-color: green;
 }
 
-.task-title.completed {
+.task-text__title.complete,
+.task-text__descr.complete {
   text-decoration: line-through;
   color: #595959;
 }
