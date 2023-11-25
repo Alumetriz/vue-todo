@@ -138,7 +138,10 @@
           </li>
 
           <li class="task-details__list-item delete-task">
-            <div class="task-detail__icon delete-task">
+            <div
+                class="task-detail__icon delete-task"
+                @click="deleteTask"
+            >
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -213,6 +216,9 @@ export default {
     completeTask() {
       this.$emit('complete-task');
       this.completedTask = this.selectedTask.isCompleted;
+    },
+    deleteTask() {
+      this.$emit('delete-task', this.selectedTask);
     }
   },
   watch: {

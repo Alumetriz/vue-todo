@@ -22,9 +22,8 @@
       @close-edit-modal="closeEditModal"
       @save-changes="updateSelectedTask"
       @complete-task="completeTask"
+      @delete-task="deleteTask"
   ></edit-task-modal>
-  <!--      @update:model-value="editTitle"-->
-  <!--      @update:text-area-value="editDescription"-->
 
   <the-header @open-modal="openModal"></the-header>
 
@@ -116,7 +115,6 @@ export default {
     selectTask(task) {
       this.selectedTask = task;
       this.editModalIsShow = true;
-      console.log(task)
     },
     editTitle(value) {
       this.newTitle = value;
@@ -131,6 +129,10 @@ export default {
     },
     completeTask() {
       this.selectedTask.isCompleted = !this.selectedTask.isCompleted;
+    },
+    deleteTask(deletedTask) {
+      this.tasks = this.tasks.filter((task) => task.id !== deletedTask.id);
+      this.editModalIsShow = false;
     }
   }
 }
