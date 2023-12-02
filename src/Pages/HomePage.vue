@@ -25,8 +25,6 @@
       @delete-task="deleteTask"
   ></edit-task-modal>
 
-  <the-header @open-modal="openModal"></the-header>
-
   <tasks-list
       :tasks="tasks"
       @select-task="selectTask"
@@ -43,15 +41,15 @@ export default {
       editModalIsShow: false,
       optionsIsOpen: false,
       optionsModalType: null,
-      taskTitle: '',
-      taskDescription: '',
+      // taskTitle: '',
+      // taskDescription: '',
       taskDeadline: '',
       taskCategory: '',
       taskPriority: 1,
       selectedTask: null,
 
-      newTitle: '',
-      newDescription: '',
+      // newTitle: '',
+      // newDescription: '',
     }
   },
   methods: {

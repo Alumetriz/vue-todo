@@ -7,8 +7,8 @@
           name='task-title'
           id='task-title'
           placeholder='Title'
-          :value="modelValue"
-          @input="updateInput($event.target.value)"
+          :value="taskTitle"
+          @input="updateTitle"
       >
     </div>
     <div>
@@ -17,26 +17,29 @@
           name='task-descr'
           id='task-descr'
           placeholder='Description'
-          :value="textAreaValue"
-          @input="updateTextArea($event.target.value)"
+          :value="taskDescription"
+          @input="updateDescription"
       ></textarea>
     </div>
   </form>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
-  props: {
-    modelValue: String,
-    textAreaValue: String,
+  computed: {
+    ...mapState({
+      taskTitle: state => state.taskData.taskTitle,
+      taskDescription: state => state.taskData.taskDescription,
+    })
   },
-  emits: ['update:modelValue', 'update:textAreaValue'],
   methods: {
-    updateInput(value) {
-      this.$emit('update:modelValue', value);
+    updateTitle(event) {
+      this.$store.commit('taskData/updateTitle', event.target.value);
     },
-    updateTextArea(value) {
-      this.$emit('update:textAreaValue', value)
+    updateDescription(event) {
+      this.$store.commit('taskData/updateDescription', event.target.value);
     }
   }
 }

@@ -5,23 +5,14 @@
 </template>
 
 <script>
-export default {
-  props: {
-    modalIsShow: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  data() {
-    return {
+import {mapMutations} from "vuex";
 
-    }
-  },
+export default {
   methods: {
-    openModal() {
-      this.$emit('open-modal');
-    }
-  }
+    ...mapMutations({
+      openModal: 'modal/openModal'
+    }),
+  },
 }
 </script>
 
