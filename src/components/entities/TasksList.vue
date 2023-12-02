@@ -12,7 +12,7 @@
         </div>
 
         <div class="tasks__wrapper empty" v-else>
-          <img src="../../src/assets/Checklist-rafiki%201.png" alt="Checklist">
+          <img src="../../../src/assets/Checklist-rafiki%201.png" alt="Checklist">
           <h3 class="tasks-title">What do you want to do today?</h3>
           <p class="tasks-description">Tap + to add your tasks</p>
         </div>
@@ -23,10 +23,9 @@
 </template>
 
 <script>
-import TaskItem from "@/components/TaskItem.vue";
 
 export default {
-  components: {TaskItem},
+  // components: {TaskItem},
   props: {
     tasks: {
       type: Array,

@@ -1,21 +1,24 @@
 import {createApp} from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
-import TheHeader from "@/components/TheHeader.vue";
-import HeaderNavList from "@/components/HeaderNavList.vue";
-import HeaderItem from "@/components/HeaderItem.vue";
+
+import TheHeader from "@/components/widgets/TheHeader.vue";
+import ModalWindow from "@/components/widgets/ModalWindow.vue";
+
+import OptionCalendar from "@/components/widgets/OptionCalendar.vue";
+import OptionCategories from "@/components/widgets/OptionCategories.vue";
+import OptionPriorities from "@/components/widgets/OptionPriorities.vue";
+
+import HeaderNavList from "@/components/entities/HeaderNavList.vue";
+import HeaderItem from "@/components/entities/HeaderItem.vue";
+import TasksList from "@/components/entities/TasksList.vue";
+
+import AddTaskButton from "@/components/features/AddTaskButton.vue";
+import AddTaskForm from "@/components/features/AddTaskForm.vue";
+import EditTaskModal from "@/components/features/EditTaskModal.vue";
+
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import AddTaskButton from "@/components/AddTaskButton.vue";
-import TasksList from "@/components/TasksList.vue";
-import ModalWindow from "@/components/ModalWindow.vue";
-import AddTaskForm from "@/components/AddTaskForm.vue";
-import OptionCalendar from "@/components/OptionCalendar.vue";
-import OptionCategories from "@/components/OptionCategories.vue";
-import OptionPriorities from "@/components/OptionPriorities.vue";
-import EditTaskModal from "@/components/EditTaskModal.vue";
 
 library.add(fas);
 
