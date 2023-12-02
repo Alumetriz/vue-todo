@@ -1,5 +1,6 @@
 import {createApp} from 'vue'
 import App from './App.vue'
+import router from '@/app/router/index.js'
 
 import TheHeader from "@/components/widgets/TheHeader.vue";
 import ModalWindow from "@/components/widgets/ModalWindow.vue";
@@ -20,6 +21,7 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 
+
 library.add(fas);
 
 const app = createApp(App);
@@ -35,4 +37,6 @@ app.component('option-categories', OptionCategories);
 app.component('option-priorities', OptionPriorities);
 app.component('edit-task-modal', EditTaskModal);
 
-app.mount('#app');
+app
+    .use(router)
+    .mount('#app');

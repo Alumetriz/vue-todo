@@ -24,8 +24,10 @@
 
 <script>
 
+import TaskItem from "@/components/entities/TaskItem.vue";
+
 export default {
-  // components: {TaskItem},
+  components: {TaskItem},
   props: {
     tasks: {
       type: Array,
