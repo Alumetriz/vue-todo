@@ -9,64 +9,61 @@
 
       <h1 class='modal-title'>Add Task</h1>
 
-      <add-task-form
-          v-model:model-value="title"
-          @update:model-value="updateInput"
-          v-model:text-area-value="description"
-          @update:text-area-value="updateTextArea"
-      ></add-task-form>
+      <add-task-form></add-task-form>
 
-      <!--      <div class='buttons__wrapper'>-->
-      <!--        <div class='first-column'>-->
-      <!--          <button class='options-btn set-deadline' @click="openOptionsModal">-->
-      <!--            <i class='far fa-clock'></i>-->
-      <!--          </button>-->
+      <div class='buttons__wrapper'>
+        <div class='first-column'>
+          <button class='options-btn set-deadline' @click="handleOption">
+            <i class='far fa-clock'></i>
+          </button>
 
-      <!--          <button class='options-btn set-tag' @click="openOptionsModal">-->
-      <!--            <i class='fas fa-tag'></i>-->
-      <!--          </button>-->
+          <button class='options-btn set-tag' @click="handleOption">
+            <i class='fas fa-tag'></i>
+          </button>
 
-      <!--          <button class='options-btn set-priority' @click="openOptionsModal">-->
-      <!--            <i class='far fa-flag'></i>-->
-      <!--          </button>-->
-      <!--        </div>-->
+          <button class='options-btn set-priority' @click="handleOption">
+            <i class='far fa-flag'></i>
+          </button>
+        </div>
 
-      <!--        <div class='second-column'>-->
-      <!--          <button class='send-task' @click="sendData">-->
-      <!--            <i class='far fa-paper-plane'></i>-->
-      <!--          </button>-->
-      <!--        </div>-->
-      <!--      </div>-->
+        <div class='second-column'>
+          <button class='send-task' @click="sendData">
+            <i class='far fa-paper-plane'></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <!--  <div class="modal" v-if="modalIsShow && optionsIsOpen" @click.stop>-->
-  <!--    <div class="modal__wrapper calendar">-->
-  <!--      <button class='back-btn' @click="backToMainModal">-->
-  <!--        <font-awesome-icon icon="arrow-left"></font-awesome-icon>-->
-  <!--      </button>-->
+  <div class="modal" v-if="modalIsShow && optionsIsOpen" @click.stop>
+    <div class="modal__wrapper calendar">
+      <button class='back-btn' @click="backToMainModal">
+        <font-awesome-icon icon="arrow-left"></font-awesome-icon>
+      </button>
 
-  <!--      <h1 class='modal-title'>{{ optionsModalTitle }}</h1>-->
+      <h1 class='modal-title'>{{ optionsModalTitle }}</h1>
 
-  <!--      <option-calendar-->
-  <!--          v-if="optionsModalType === 'set-deadline'"-->
-  <!--          @cancel="backToMainModal"-->
-  <!--          @save-date="saveDate"-->
-  <!--      ></option-calendar>-->
+      <!--            <option-calendar-->
+      <!--                v-if="optionsModalType === 'set-deadline'"-->
+      <!--                @cancel="backToMainModal"-->
+      <!--                @save-date="saveDate"-->
+      <!--            ></option-calendar>-->
 
-  <!--      <option-categories-->
-  <!--          v-else-if="optionsModalType === 'set-tag'"-->
-  <!--          @cancel="backToMainModal"-->
-  <!--          @save-category="saveCategory"-->
-  <!--      ></option-categories>-->
+      <!--            <option-categories-->
+      <!--                v-else-if="optionsModalType === 'set-tag'"-->
+      <!--                @cancel="backToMainModal"-->
+      <!--                @save-category="saveCategory"-->
+      <!--            ></option-categories>-->
 
-  <!--      <option-priorities-->
-  <!--          v-else-if="optionsModalType === 'set-priority'"-->
-  <!--          @cancel="backToMainModal"-->
-  <!--          @save-priority="savePriority"-->
-  <!--      ></option-priorities>-->
+      <!--            <option-priorities-->
+      <!--                v-else-if="optionsModalType === 'set-priority'"-->
+      <!--                @cancel="backToMainModal"-->
+      <!--                @save-priority="savePriority"-->
+      <!--            ></option-priorities>-->
 
-  <!--    </div>-->
-  <!--  </div>-->
+      <component :is="currentComponent"></component>
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -77,125 +74,45 @@ export default {
   components: {FontAwesomeIcon},
   methods: {
     ...mapMutations({
-      closeModal: 'modal/closeModal'
-    })
+      closeModal: 'modal/closeModal',
+      openOptions: 'Options/openOptions',
+      closeOptions: 'Options/closeOptions',
+      backToMainModal: 'Options/backToMainModal',
+    }),
+    handleOption(event) {
+      const option = event.target.closest('.options-btn').classList[1]
+      this.$store.commit('Options/openOptions', option);
+    },
   },
   computed: {
     ...mapState({
       modalIsShow: state => state.modal.modalIsShow,
-    })
+      optionsIsOpen: state => state.Options.optionsIsOpen,
+      optionsModalType: state => state.Options.optionsModalType,
+    }),
+
+    currentComponent() {
+      if (this.optionsModalType === 'set-deadline') {
+        return 'option-calendar';
+      } else if (this.optionsModalType === 'set-tag') {
+        return 'option-categories';
+      } else if (this.optionsModalType === 'set-priority') {
+        return 'option-priorities';
+      }
+      return null;
+    },
+    optionsModalTitle() {
+      let title = '';
+      if (this.optionsModalTitle === 'set-deadline') {
+        title = 'Set Deadline';
+      } else if (this.optionsModalTitle === 'set-tag') {
+        title = 'Set Category';
+      } else if (this.optionsModalTitle === 'set-priority') {
+        title = 'Set Priority';
+      }
+      return title;
+    }
   }
-  // props: {
-  //   modalIsShow: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-  //   optionsIsOpen: {
-  //     type: Boolean,
-  //     default: false,
-  //   },
-  //   optionsModalType: {
-  //     type: String,
-  //   },
-  //   taskTitle: [String, Number],
-  //   taskDescription: [String, Number],
-  // },
-  // emits: [
-  //   'send-title',
-  //   'send-description',
-  //   'send-data',
-  //   'close-modal',
-  //   'open-options-modal',
-  //   'close-options-modal',
-  //   'save-date',
-  //   'send-date',
-  //   'send-category',
-  //   'send-priority',
-  // ],
-  // data() {
-  //   return {
-  //     title: '',
-  //     description: '',
-  //     deadline: null,
-  //     category: null,
-  //     priority: 1,
-  //   }
-  // },
-  // methods: {
-  //   closeModal() {
-  //     this.$emit('close-modal');
-  //     this.clearInputs();
-  //   },
-  //   updateInput(value) {
-  //     this.title = value
-  //     this.$emit('send-title', this.title);
-  //   },
-  //   updateTextArea(value) {
-  //     this.description = value;
-  //     this.$emit('send-description', this.description);
-  //   },
-  //   clearInputs() {
-  //     this.title = '';
-  //     this.description = '';
-  //   },
-  //   sendData() {
-  //     if (this.title.trim() === '') return;
-  //
-  //     this.$emit('send-data', {
-  //       title: this.title,
-  //       description: this.description,
-  //       deadline: this.deadline,
-  //       category: this.category,
-  //       priority: this.priority,
-  //     });
-  //     this.closeModal();
-  //   },
-  //   openOptionsModal(event) {
-  //     const option = event.target.closest('.options-btn').classList[1];
-  //     console.log(option)
-  //     this.$emit('open-options-modal', option);
-  //   },
-  //   backToMainModal() {
-  //     this.$emit('close-options-modal');
-  //   },
-  //   saveDate(data) {
-  //     console.log(`${data.selectedDate.date()} ${data.selectedDate.format('MMM')}
-  //     ${+data.selectedHour < 10 ? `0${data.selectedHour}` : data.selectedHour}
-  //     ${+data.selectedMinute < 10 ? `0${data.selectedMinute}` : data.selectedMinute}`);
-  //
-  //     const date = `${data.selectedDate.date()} ${data.selectedDate.format('MMM')}`;
-  //     const hours = `${+data.selectedHour < 10 ? `0${data.selectedHour}` : data.selectedHour}`;
-  //     const minutes = `${+data.selectedMinute < 10 ? `0${data.selectedMinute}` : data.selectedMinute}`;
-  //
-  //     this.deadline = date + ' at ' + hours + ':' + minutes;
-  //     this.$emit('send-date', this.deadline);
-  //     this.backToMainModal();
-  //   },
-  //   saveCategory(obj) {
-  //     this.category = obj;
-  //     this.$emit('send-category', this.category);
-  //     this.backToMainModal();
-  //   },
-  //   savePriority(value) {
-  //     this.priority = value;
-  //     this.$emit('send-priority', this.priority);
-  //     this.backToMainModal();
-  //   }
-  // },
-  // computed: {
-  //   optionsModalTitle() {
-  //     switch (this.optionsModalType) {
-  //       case 'set-deadline':
-  //         return 'Set Deadline';
-  //       case 'set-tag':
-  //         return 'Set Category';
-  //       case 'set-priority':
-  //         return 'Set Priority';
-  //       default:
-  //         return 'Add Task';
-  //     }
-  //   }
-  // }
 }
 </script>
 

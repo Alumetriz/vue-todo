@@ -6,7 +6,10 @@
       <div class='dates'>
         <div class='month'>
           <div class='arrows prev-mth' @click="prevMonth">&lt;</div>
-          <div class='mth'>{{ currentDate.format('MMMM') }} {{ currentDate.format('YYYY') }}</div>
+          <div class='mth'>{{ currentDate.format('MMMM') }} {{
+              currentDate.format('YYYY')
+            }}
+          </div>
           <div class='arrows next-mth' @click="nextMonth">&gt;</div>
         </div>
 
@@ -15,8 +18,8 @@
               class="day"
               v-for="day in daysInMonth"
               :key="day"
-              @click="selectDate(day)"
-              :class="{selected: isSelected(day)}"
+              @click="handleDate(day)"
+              :class="{selected: isSelectedDate(day)}"
           >{{ day }}
           </div>
         </div>
@@ -29,7 +32,7 @@
             class='hour'
             v-for="hour in 23"
             :key="hour"
-            @click="selectHour(hour)"
+            @click="handleHour(hour)"
             :class="{selected: isSelectedHour(hour)}"
         >{{ hour < 10 ? '0' + hour : hour }}
         </div>
@@ -40,7 +43,7 @@
             class='minute'
             v-for="minute in 59"
             :key="minute"
-            @click="selectMinutes(minute)"
+            @click="handleMinutes(minute)"
             :class="{selected: isSelectedMinutes(minute)}"
         >{{ minute < 10 ? '0' + minute : minute }}
         </div>
@@ -48,77 +51,43 @@
     </div>
 
     <div class='set-deadline__btns'>
-      <button class='set-deadline__btn cancel-btn' @click="backToMainModal">Cancel</button>
-      <button class='set-deadline__btn choose-time__btn' @click="saveOption">Save</button>
+      <button class='set-deadline__btn cancel-btn' @click="cancelDate($store.state.Options)">Cancel</button>
+      <button class='set-deadline__btn choose-time__btn' @click="saveDate($store.state.Options)">Save</button>
     </div>
   </div>
 </template>
 
 <script>
-import moment from 'moment';
+import {mapMutations, mapGetters, mapState} from "vuex";
 
 export default {
-  data() {
-    return {
-      currentDate: moment(),
-      selectedDate: null,
-      selectedHour: null,
-      selectedMinute: null,
-    }
-  },
   methods: {
-    selectDate(day) {
-      this.selectedDate = moment(this.currentDate).date(day);
+    ...mapMutations({
+      prevMonth: 'Options/OptionCalendar/prevMonth',
+      nextMonth: 'Options/OptionCalendar/nextMonth',
+      cancelDate: 'Options/OptionCalendar/cancelDate',
+      saveDate: 'Options/OptionCalendar/saveDate',
+    }),
+    handleDate(day) {
+      this.$store.commit('Options/OptionCalendar/selectDate', day);
     },
-    selectHour(hour) {
-      console.log(hour)
-      this.selectedHour = hour;
+    handleHour(hour) {
+      this.$store.commit('Options/OptionCalendar/selectHour', hour);
     },
-    isSelectedHour(hour) {
-      return this.selectedHour === hour;
+    handleMinutes(minutes) {
+      this.$store.commit('Options/OptionCalendar/selectMinutes', minutes);
     },
-    selectMinutes(minute) {
-      this.selectedMinute = minute;
-    },
-    isSelectedMinutes(minute) {
-      return this.selectedMinute === minute;
-    },
-    isSelected(day) {
-      return (
-          this.selectedDate &&
-          this.selectedDate.date() === day &&
-          this.selectedDate.month() === this.currentDate.month()
-      );
-    },
-    prevMonth() {
-      this.currentDate = this.currentDate.clone().subtract(1, 'month');
-    },
-    nextMonth() {
-      this.currentDate = this.currentDate.clone().add(1, 'month');
-    },
-    backToMainModal() {
-      this.$emit('cancel');
-    },
-    saveOption() {
-      if (!this.selectedDate && !this.selectedHour && !this.selectedMinute) return;
-
-      this.$emit('save-date', {
-        selectedDate: this.selectedDate,
-        selectedHour: this.selectedHour,
-        selectedMinute: this.selectedMinute,
-      });
-    }
   },
   computed: {
-    daysInMonth() {
-      const days = [];
-      const daysInCurrentMonth = this.currentDate.daysInMonth();
-
-      for (let i = 1; i <= daysInCurrentMonth; i++) {
-        days.push(i);
-      }
-      return days;
-    },
+    ...mapState({
+      currentDate: state => state.Options.OptionCalendar.currentDate,
+    }),
+    ...mapGetters('Options/OptionCalendar', [
+      'isSelectedHour',
+      'isSelectedMinutes',
+      'isSelectedDate',
+      'daysInMonth',
+    ]),
   }
 }
 </script>
@@ -128,10 +97,7 @@ export default {
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  /*align-items: center;*/
-  /*justify-content: center;*/
   place-items: center;
-  /*height: 120px;*/
   gap: 15px;
 
   margin: 40px 0;
@@ -142,7 +108,6 @@ export default {
   font-size: 17px;
   color: white;
   background-color: #151515;
-  /*padding: 5px;*/
   width: 50px;
   height: 50px;
   border-radius: 5px;

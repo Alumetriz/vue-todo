@@ -1,16 +1,13 @@
 import {createStore} from "vuex";
 import {modal} from "@/app/store/modal";
 import {taskData} from "@/app/store/taskData";
+import {Options} from "@/app/store/Options";
 
 export default createStore({
     state() {
         return {
             tasks: [],
             editModalIsShow: false,
-            optionsIsOpen: false,
-            optionsModalType: null,
-            taskTitle: '',
-            taskDescription: '',
             taskDeadline: '',
             taskCategory: '',
             taskPriority: 1,
@@ -23,5 +20,6 @@ export default createStore({
     modules: {
         modal,
         taskData,
+        Options,
     },
 });

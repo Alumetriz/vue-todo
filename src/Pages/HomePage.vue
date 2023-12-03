@@ -1,18 +1,15 @@
 <template>
-  <modal-window
-      :modal-is-show="modalIsShow"
-      :options-is-open="optionsIsOpen"
-      :options-modal-type="optionsModalType"
-      @close-modal="closeModal"
-      @send-title="getTitle"
-      @send-description="getDescription"
-      @send-date="getDate"
-      @send-category="getCategory"
-      @send-priority="getPriority"
-      @send-data="getData"
-      @open-options-modal="openOptionsModal"
-      @close-options-modal="closeOptionsModal"
-  ></modal-window>
+  <modal-window></modal-window>
+
+<!--      @close-modal="closeModal"-->
+<!--      @send-title="getTitle"-->
+<!--      @send-description="getDescription"-->
+<!--      @send-date="getDate"-->
+<!--      @send-category="getCategory"-->
+<!--      @send-priority="getPriority"-->
+<!--      @send-data="getData"-->
+<!--      @open-options-modal="openOptionsModal"-->
+<!--      @close-options-modal="closeOptionsModal"-->
 
   <edit-task-modal
       v-if="selectedTask"
