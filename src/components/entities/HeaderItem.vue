@@ -1,10 +1,10 @@
 <template>
   <li>
-    <a href='#' class='link'>
+    <router-link :to="link">
       <div v-html="headerItem.svgIcon"></div>
 
       <span class="header-item__title">{{ headerItem.title }}</span>
-    </a>
+    </router-link>
   </li>
 </template>
 
@@ -18,6 +18,19 @@ export default {
       required: true,
     }
   },
+  computed: {
+    link() {
+      if (this.headerItem.title === 'Home') {
+        return '/'
+      } else if (this.headerItem.title === 'Calendar') {
+        return '/CalendarPage'
+      } else if (this.headerItem.title === 'Focus') {
+        return '/FocusPage'
+      } else if (this.headerItem.title === 'Profile') {
+        return '/UserProfile'
+      }
+    }
+  },
 
 }
 </script>
@@ -29,6 +42,7 @@ export default {
   align-items: center;
   gap: 5px;
 }
+
 .header-item__title {
   text-transform: capitalize;
   color: white;

@@ -1,3 +1,5 @@
+import {EditTask} from "@/app/store/EditTask";
+
 const clearTaskData = (state, rootState) => {
     state.taskTitle = '';
     state.taskDescription = '';
@@ -23,7 +25,8 @@ export const taskData = {
                 deadline: null,
                 category: null,
                 priority: null,
-            }
+            },
+            selectedTask: null,
         }
     },
     mutations: {
@@ -49,6 +52,9 @@ export const taskData = {
             clearTaskData(state, rootState);
             rootState.modal.modalIsShow = false;
         },
+    },
+    modules: {
+      EditTask,
     },
     namespaced: true,
 }

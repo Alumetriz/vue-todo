@@ -2,11 +2,13 @@
   <div
       class="task"
   >
-    <svg @click="selectTask" class="options-task__btn" xmlns="http://www.w3.org/2000/svg" height="1em"
-         viewBox="0 0 448 512">
-      <path
-          d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
-    </svg>
+    <router-link to="/EditTask" class="options-task__btn">
+      <svg @click="selectTask(task)" xmlns="http://www.w3.org/2000/svg" height="1em"
+           viewBox="0 0 448 512">
+        <path
+            d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
+      </svg>
+    </router-link>
 
     <div class="task__main-info">
       <h2 :class="{'task-title': true, 'completed': task.isCompleted}">{{ task.title }}</h2>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+import {mapState, mapMutations} from "vuex";
 
 export default {
   props: {
@@ -47,9 +50,9 @@ export default {
     }
   },
   methods: {
-    selectTask() {
-      this.$emit('select-task', this.task);
-    },
+    ...mapMutations('taskData/EditTask', [
+      'selectTask',
+    ])
   },
   computed: {
     getDate() {
