@@ -25,19 +25,19 @@
 <script>
 
 import TaskItem from "@/components/entities/TaskItem.vue";
+import {mapState} from "vuex";
 
 export default {
   components: {TaskItem},
-  props: {
-    tasks: {
-      type: Array,
-      required: true,
-    }
-  },
   methods: {
     selectTask(task) {
       this.$emit('select-task', task);
     }
+  },
+  computed: {
+    ...mapState({
+      tasks: state => state.taskData.tasks,
+    })
   }
 }
 </script>
@@ -58,11 +58,13 @@ export default {
   font-size: 20px;
   font-weight: 300;
 }
+
 .tasks__wrapper {
   display: flex;
   flex-direction: column;
   gap: 35px;
 }
+
 .tasks__wrapper.empty {
   display: flex;
   flex-direction: column;

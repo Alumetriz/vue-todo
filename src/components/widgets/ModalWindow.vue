@@ -1,9 +1,9 @@
 <template>
-  <div class='modal-overlay' v-if="modalIsShow && !optionsIsOpen" @click="closeModal"></div>
+  <div class='modal-overlay' v-if="modalIsShow && !optionsIsOpen" @click="closeModal($store.state)"></div>
   <div class="modal-overlay" v-if="modalIsShow && optionsIsOpen" @click="backToMainModal"></div>
   <div class='modal' v-if="modalIsShow && !optionsIsOpen" @click.stop>
     <div class='modal__wrapper'>
-      <button class='close-btn' @click="closeModal">
+      <button class='close-btn' @click="closeModal($store.state)">
         <i class='fas fa-times'></i>
       </button>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class='second-column'>
-          <button class='send-task' @click="sendData">
+          <button class='send-task' @click="saveTaskData($store.state)">
             <i class='far fa-paper-plane'></i>
           </button>
         </div>
@@ -41,24 +41,6 @@
       </button>
 
       <h1 class='modal-title'>{{ optionsModalTitle }}</h1>
-
-      <!--            <option-calendar-->
-      <!--                v-if="optionsModalType === 'set-deadline'"-->
-      <!--                @cancel="backToMainModal"-->
-      <!--                @save-date="saveDate"-->
-      <!--            ></option-calendar>-->
-
-      <!--            <option-categories-->
-      <!--                v-else-if="optionsModalType === 'set-tag'"-->
-      <!--                @cancel="backToMainModal"-->
-      <!--                @save-category="saveCategory"-->
-      <!--            ></option-categories>-->
-
-      <!--            <option-priorities-->
-      <!--                v-else-if="optionsModalType === 'set-priority'"-->
-      <!--                @cancel="backToMainModal"-->
-      <!--                @save-priority="savePriority"-->
-      <!--            ></option-priorities>-->
 
       <component :is="currentComponent"></component>
 
@@ -75,6 +57,7 @@ export default {
   methods: {
     ...mapMutations({
       closeModal: 'modal/closeModal',
+      saveTaskData: 'taskData/saveTaskData',
       openOptions: 'Options/openOptions',
       closeOptions: 'Options/closeOptions',
       backToMainModal: 'Options/backToMainModal',

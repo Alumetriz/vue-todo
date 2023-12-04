@@ -11,19 +11,18 @@
 <!--      @open-options-modal="openOptionsModal"-->
 <!--      @close-options-modal="closeOptionsModal"-->
 
-  <edit-task-modal
-      v-if="selectedTask"
-      :edit-modal-is-show="editModalIsShow"
-      :selected-task="selectedTask"
-      :is-completed="selectedTask.isCompleted"
-      @close-edit-modal="closeEditModal"
-      @save-changes="updateSelectedTask"
-      @complete-task="completeTask"
-      @delete-task="deleteTask"
-  ></edit-task-modal>
+<!--  <edit-task-modal-->
+<!--      v-if="selectedTask"-->
+<!--      :edit-modal-is-show="editModalIsShow"-->
+<!--      :selected-task="selectedTask"-->
+<!--      :is-completed="selectedTask.isCompleted"-->
+<!--      @close-edit-modal="closeEditModal"-->
+<!--      @save-changes="updateSelectedTask"-->
+<!--      @complete-task="completeTask"-->
+<!--      @delete-task="deleteTask"-->
+<!--  ></edit-task-modal>-->
 
   <tasks-list
-      :tasks="tasks"
       @select-task="selectTask"
   ></tasks-list>
 </template>
@@ -31,24 +30,6 @@
 <script>
 
 export default {
-  data() {
-    return {
-      tasks: [],
-      modalIsShow: false,
-      editModalIsShow: false,
-      optionsIsOpen: false,
-      optionsModalType: null,
-      // taskTitle: '',
-      // taskDescription: '',
-      taskDeadline: '',
-      taskCategory: '',
-      taskPriority: 1,
-      selectedTask: null,
-
-      // newTitle: '',
-      // newDescription: '',
-    }
-  },
   methods: {
     clearInputs() {
       this.taskTitle = '';
@@ -61,51 +42,6 @@ export default {
     closeModal() {
       this.modalIsShow = false;
       this.clearInputs();
-    },
-    closeEditModal() {
-      this.editModalIsShow = false;
-    },
-    getTitle(value) {
-      this.taskTitle = value;
-    },
-    getDescription(value) {
-      this.taskDescription = value;
-    },
-    getDate(value) {
-      this.taskDeadline = value;
-    },
-    getCategory(value) {
-      this.taskCategory = value;
-    },
-    getPriority(value) {
-      console.log(value)
-      this.taskPriority = value;
-    },
-    getData(value) {
-      this.taskTitle = value.title;
-      this.taskDescription = value.description;
-      this.taskDeadline = value.deadline;
-
-      this.tasks.push(
-          {
-            id: Date.now(),
-            title: this.taskTitle,
-            description: this.taskDescription,
-            deadline: this.taskDeadline,
-            category: this.taskCategory,
-            priority: this.taskPriority,
-            isCompleted: false,
-          }
-      );
-      this.clearInputs();
-    },
-    openOptionsModal(option) {
-      this.optionsModalType = option;
-      this.optionsIsOpen = true;
-    },
-    closeOptionsModal() {
-      this.optionsModalType = null;
-      this.optionsIsOpen = false;
     },
     selectTask(task) {
       this.selectedTask = task;

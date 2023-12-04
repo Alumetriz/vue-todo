@@ -2,14 +2,15 @@
   <div
       class="task"
   >
-    <svg @click="selectTask" class="options-task__btn" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+    <svg @click="selectTask" class="options-task__btn" xmlns="http://www.w3.org/2000/svg" height="1em"
+         viewBox="0 0 448 512">
       <path
           d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"></path>
     </svg>
 
     <div class="task__main-info">
       <h2 :class="{'task-title': true, 'completed': task.isCompleted}">{{ task.title }}</h2>
-      <p class="task-deadline">{{ task.deadline }}</p>
+      <p class="task-deadline">{{ getDate }}</p>
     </div>
 
     <div class="task__part-info">
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     task: {
@@ -48,6 +50,17 @@ export default {
     selectTask() {
       this.$emit('select-task', this.task);
     },
+  },
+  computed: {
+    getDate() {
+      const date = this.task.deadline.date;
+      const hours = this.task.deadline.hours;
+      const minutes = this.task.deadline.minutes;
+
+      return '' + date.format("MMM DD") + ' ' +
+          (hours < 10 ? '0' + hours : hours) + ':' +
+          (minutes < 10 ? '0' + minutes : minutes);
+    }
   }
 }
 </script>
@@ -78,10 +91,12 @@ export default {
   font-size: 35px;
   font-weight: 500;
 }
+
 .task-title.completed {
   text-decoration: line-through;
   color: #595959;
 }
+
 .task-deadline {
   color: #AFAFAF;
   font-size: 21px;

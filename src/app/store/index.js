@@ -6,15 +6,15 @@ import {Options} from "@/app/store/Options";
 export default createStore({
     state() {
         return {
-            tasks: [],
-            editModalIsShow: false,
-            taskDeadline: '',
-            taskCategory: '',
-            taskPriority: 1,
-            selectedTask: null,
-
-            newTitle: '',
-            newDescription: '',
+            // tasks: [],
+            // editModalIsShow: false,
+            // taskDeadline: '',
+            // taskCategory: '',
+            // taskPriority: 1,
+            // selectedTask: null,
+            //
+            // newTitle: '',
+            // newDescription: '',
         }
     },
     modules: {
