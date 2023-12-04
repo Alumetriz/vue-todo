@@ -1,5 +1,6 @@
 import {OptionCalendar} from "@/app/store/OptionCalendar";
 import {OptionCategories} from "@/app/store/OptionCategories";
+import {OptionPriorities} from "@/app/store/OptionPriorities";
 
 
 export const Options = {
@@ -23,7 +24,8 @@ export const Options = {
     },
     modules: {
         OptionCalendar,
-        OptionCategories
+        OptionCategories,
+        OptionPriorities,
     },
     namespaced: true,
 }
