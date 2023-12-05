@@ -3,23 +3,22 @@ import {modal} from "@/app/store/modal";
 import {taskData} from "@/app/store/taskData";
 import {Options} from "@/app/store/Options";
 
-export default createStore({
-    state() {
-        return {
-            // tasks: [],
-            // editModalIsShow: false,
-            // taskDeadline: '',
-            // taskCategory: '',
-            // taskPriority: 1,
-            // selectedTask: null,
-            //
-            // newTitle: '',
-            // newDescription: '',
-        }
-    },
+export const store = createStore({
     modules: {
         modal,
         taskData,
         Options,
     },
 });
+
+store.dispatch('taskData/loadTasksFromLocalStorage');
+
+store.watch(
+    (state) => state.taskData.tasks,
+    (newTasks) => {
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+    },
+    {
+        deep: true
+    }
+);

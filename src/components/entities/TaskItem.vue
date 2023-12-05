@@ -12,7 +12,7 @@
 
     <div class="task__main-info">
       <h2 :class="{'task-title': true, 'completed': task.isCompleted}">{{ task.title }}</h2>
-      <p class="task-deadline">{{ getDate }}</p>
+      <p class="task-deadline">{{ task.deadline }}</p>
     </div>
 
     <div class="task__part-info">
@@ -54,17 +54,6 @@ export default {
       'selectTask',
     ])
   },
-  computed: {
-    getDate() {
-      const date = this.task.deadline.date;
-      const hours = this.task.deadline.hours;
-      const minutes = this.task.deadline.minutes;
-
-      return '' + date.format("MMM DD") + ' ' +
-          (hours < 10 ? '0' + hours : hours) + ':' +
-          (minutes < 10 ? '0' + minutes : minutes);
-    }
-  }
 }
 </script>
 

@@ -50,7 +50,7 @@
 
           <h5 class="task-detail__title">task time:</h5>
         </div>
-        <div class="detail-btn deadline-detail"> {{ getDate }}</div>
+        <div class="detail-btn deadline-detail"> {{ deadline }}</div>
       </div>
 
       <div
@@ -157,15 +157,6 @@ export default {
       priority: state => state.taskData.EditTask.selectedTask?.priority,
       editDetailIsOpen: state => state.taskData.EditTask.editDetailIsOpen,
     }),
-    getDate() {
-      const date = this.deadline.date;
-      const hours = this.deadline.hours;
-      const minutes = this.deadline.minutes;
-
-      return '' + date.format("MMM DD") + ' ' +
-          (hours < 10 ? '0' + hours : hours) + ':' +
-          (minutes < 10 ? '0' + minutes : minutes);
-    }
   }
 }
 </script>

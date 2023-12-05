@@ -1,7 +1,7 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from '@/app/router/index.js'
-import store from '@/app/store/index.js'
+import {store} from '@/app/store/index.js'
 
 import TheHeader from "@/components/widgets/TheHeader.vue";
 import ModalWindow from "@/components/widgets/ModalWindow.vue";
