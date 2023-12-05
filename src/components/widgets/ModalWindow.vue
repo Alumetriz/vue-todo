@@ -7,31 +7,8 @@
         <i class='fas fa-times'></i>
       </button>
 
-      <h1 class='modal-title'>Add Task</h1>
+      <slot></slot>
 
-      <add-task-form></add-task-form>
-
-      <div class='buttons__wrapper'>
-        <div class='first-column'>
-          <button class='options-btn set-deadline' @click="handleOption">
-            <i class='far fa-clock'></i>
-          </button>
-
-          <button class='options-btn set-tag' @click="handleOption">
-            <i class='fas fa-tag'></i>
-          </button>
-
-          <button class='options-btn set-priority' @click="handleOption">
-            <i class='far fa-flag'></i>
-          </button>
-        </div>
-
-        <div class='second-column'>
-          <button class='send-task' @click="saveTaskData($store.state)">
-            <i class='far fa-paper-plane'></i>
-          </button>
-        </div>
-      </div>
     </div>
   </div>
   <div class="modal" v-if="modalIsShow && optionsIsOpen" @click.stop>

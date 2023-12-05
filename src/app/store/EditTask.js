@@ -8,7 +8,9 @@ export const EditTask = {
                 newDeadline: null,
                 newCategory: null,
                 newPriority: null,
-            }
+            },
+            editDetailIsOpen: false,
+            selectedDetail: null,
         }
     },
     mutations: {
@@ -22,6 +24,12 @@ export const EditTask = {
         },
         changeDescription(state, newDescr) {
             state.newData.newDescr = newDescr;
+        },
+        openDetailEdit(state, detail) {
+            state.editDetailIsOpen = true;
+            state.selectedDetail = detail;
+            console.log(state.selectedDetail)
+            console.log(state.selectedTask)
         }
     },
     namespaced: true,
